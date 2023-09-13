@@ -5,11 +5,15 @@ import googleImg from '../images/googleAppSignInImg1.png';
 import googleVoice from '../images/googleVoice.png';
 import googleLens from '../images/googleLens.webp';
 import webStore from '../images/webStore.png';
-import { Box, Button, IconButton, TextField } from '@mui/material';
+import { Avatar, Box, Button, IconButton, Menu, MenuItem, TextField, Tooltip } from '@mui/material';
 import ShortCut from './ShortCut';
 import AddIcon from '@mui/icons-material/Add';
 import { addDoc, collection, doc, getDocs, orderBy, query, setDoc } from 'firebase/firestore';
+import { NavLink } from 'react-router-dom';
+import AppsIcon from '@mui/icons-material/Apps';
 import CloseIcon from '@mui/icons-material/Close';
+import SignInPage from './SignInPage';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SearchPage = () => {
   let [searchText, setSearchText] = useState();
@@ -30,7 +34,8 @@ const SearchPage = () => {
         let shortCuts = [];
         snapshot.forEach((cut) => {
           shortCuts.push({
-            ...cut.data()
+            ...cut.data(),
+            id: cut.id
           });
         })
         setShortCuts(shortCuts);
@@ -51,21 +56,149 @@ const SearchPage = () => {
       url: shortCutURL,
       dateAdded: new Date().getTime()
     })
-    .then(() => {
-      getShortCuts();
-    })
+      .then(() => {
+        getShortCuts();
+      })
     setIsShortCutOpen(!isShortCutOpen);
   }
 
+  // account settings
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  let [addAccount, setAddAccount] = useState(false);
+  let [email, setEmail] = useState();
+  let [password, setPassword] = useState();
+  let [name, setName] = useState();
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  let signUpControl = useSelector((state) => {
+    return state.signUpControl;
+  })
+  let dispatch = useDispatch();
+
   return (
     <div>
+      {
+        addAccount ?
+          <div style={{ position: "fixed", top: "50%", left: "50%", backdropFilter: "brightness(0.5)", width: "100%", height: "100vh", transform: "translate(-50%, -50%)", zIndex: "100" }}>
+            <div style={{ position: "absolute", top: "50%", left: "50%", background: "#fff", transform: "translate(-50%, -50%)", width: "500px", padding: "0px" }}>
+              <IconButton onClick={() => {
+                dispatch({
+                  type: "OPEN_SIGN_UP",
+                  payload: !signUpControl
+                })
+                setAddAccount(!addAccount);
+              }} sx={{ position: "absolute", top: "10px", right: "10px" }}>
+                <CloseIcon />
+              </IconButton>
+              <SignInPage addAccount={true} />
+            </div>
+          </div>
+          :
+          <></>
+      }
       {/* apps and account */}
-      <div style={{ width: "100%", background: "#efefef", padding: "20px 0" }}>
-        apps and account
+      <div style={{ width: "100%", background: "#fff", padding: "10px 20px", textAlign: "end" }}>
+        <NavLink to={``} style={{ fontSize: "12px", marginRight: "10px", color: "#000" }}>
+          Gmail
+        </NavLink>
+        <NavLink to={``} style={{ fontSize: "12px", marginRight: "10px", color: "#000" }}>
+          Images
+        </NavLink>
+        <Tooltip title='Apps'>
+          <IconButton style={{ marginRight: "10px" }}>
+            <AppsIcon />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Account account">
+          <IconButton
+            onClick={handleClick}
+            size="small"
+            aria-controls={open ? 'account-menu' : undefined}
+            aria-haspopup="true"
+            aria-expanded={open ? 'true' : undefined}
+          >
+            <Avatar sx={{ width: 32, height: 32 }}>{auth.currentUser.displayName[0]}</Avatar>
+          </IconButton>
+        </Tooltip>
+        <Menu
+          anchorEl={anchorEl}
+          id="account-menu"
+          open={open}
+          onClose={handleClose}
+          onClick={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
+              mt: 1.5,
+              background: "#e9f3fd",
+              borderRadius: "20px",
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1,
+              },
+              '&:before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: '#deeaf6',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0,
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+        >
+          <div style={{ width: "400px", position: "relative" }}>
+            <IconButton onClick={handleClose} sx={{ position: "absolute", top: "0", right: "10px" }}>
+              <CloseIcon />
+            </IconButton>
+            <div style={{ textAlign: "center" }}>
+              <p className='m-0'>{auth.currentUser.email}</p>
+            </div>
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center" }}>
+              <Avatar style={{ width: "70px", height: "70px", margin: "14px 0" }}>{auth.currentUser.displayName[0]}</Avatar>
+              <h5 style={{ marginBottom: "10px" }}>Hi, {(auth.currentUser.displayName).toUpperCase()}!</h5>
+              <button className='googleManageBtn' style={{ background: "transparent", borderRadius: "30px", border: "1px solid grey", padding: "5px 20px", marginBottom: "10px", color: "blue" }}>Manage your google account</button>
+              <div>
+                <button className='accountBtn' onClick={() => {
+                  dispatch({
+                    type: "OPEN_SIGN_UP",
+                    payload: !signUpControl
+                  })
+                  setAddAccount(!addAccount);
+                }} style={{ padding: "10px", marginRight: "2px", background: "#fff", border: "none", borderTopRightRadius: "5px", borderBottomRightRadius: "5px", borderTopLeftRadius: '30px', borderBottomLeftRadius: "30px" }}><i className="fa-solid fa-plus"></i> Add an account</button>
+                <button className='accountBtn' onClick={() => {
+                  signOut(auth);
+                }} style={{ padding: "10px", background: "#fff", border: "none", borderTopLeftRadius: "5px", borderBottomLeftRadius: "5px", borderTopRightRadius: '30px', borderBottomRightRadius: "30px" }}><i className="fa-solid fa-arrow-right-from-bracket"></i> Sign out</button>
+              </div>
+            </div>
+            <div style={{ display: "flex", justifyContent: "center", alignItems: "center", margin: "10px 0" }}>
+              <NavLink style={{ textDecoration: "none", color: "#000", borderRadius: "5px", padding: "1px 4px", fontSize: "10px" }} className='accountFooter'>Privacy Policy</NavLink>
+              <i className="fa-solid fa-circle" style={{ fontSize: "5px", margin: "auto 10px" }}></i>
+              <NavLink style={{ textDecoration: "none", color: "#000", borderRadius: "5px", padding: "1px 4px", fontSize: "10px" }} className='accountFooter'>Terms of Service</NavLink>
+            </div>
+          </div>
+        </Menu>
       </div>
 
       {/* search part */}
-      <div style={{ width: "100%", height: "calc(70vh - 64px)", marginBottom: "178px", background: "#fff", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <div style={{ width: "100%", height: "calc(70vh - 64px)", marginBottom: "180px", background: "#fff", display: "flex", justifyContent: "center", alignItems: "center" }}>
         <div style={{ textAlign: "center" }}>
           <img src={googleImg} alt="" style={{ width: "300px", marginBottom: "10px" }} />
           <div style={{ width: "600px", margin: "10px 0", display: "flex", background: "#fff", borderRadius: "40px", height: "40px", boxShadow: "0px 1px 6px #20212447" }}>
@@ -121,12 +254,12 @@ const SearchPage = () => {
             }
 
             {
-              shortCuts?
+              shortCuts ?
                 <>
                   {
                     shortCuts.map((shortCut) => {
                       return (
-                        <ShortCut text={shortCut.name} url={'https://'+shortCut.url} />
+                        <ShortCut text={shortCut.name} url={'https://' + shortCut.url} shortCut={shortCut} />
                       )
                     })
                   }

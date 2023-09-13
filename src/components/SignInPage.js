@@ -5,15 +5,23 @@ import { TextField, Box, Button } from '@mui/material';
 import signInImg from '../images/googleAppSignInImg1.png';
 import { setUserToFirebase } from '../firebase/firebaseActions';
 import { toast } from 'react-toastify';
+import { useDispatch, useSelector } from 'react-redux';
 
-const SignInPage = () => {
+const SignInPage = ({ addAccount }) => {
     let [email, setEmail] = useState();
     let [password, setPassword] = useState();
     let [name, setName] = useState();
-    let [signUpControl, setSignUpControl] = useState(false);
+
+    let signUpControl = useSelector((state) => {
+        return state.signUpControl;
+    })
+    let dispatch = useDispatch();
 
     const openSignUpFunc = () => {
-        setSignUpControl(!signUpControl);
+        dispatch({
+            type: "OPEN_SIGN_UP",
+            payload: !signUpControl
+        })
     }
 
     const submitFunc = () => {
@@ -65,27 +73,37 @@ const SignInPage = () => {
                     <TextField fullWidth id="outlined-basic" onChange={(e) => {
                         setEmail(e.target.value);
                     }} label="Email" variant="outlined" sx={{ mb: "16px" }} />
-                    <TextField fullWidth id="outlined-basic" onChange={(e) => {
+                    <TextField fullWidth id="outlined-basic" type='password' onChange={(e) => {
                         setPassword(e.target.value);
                     }} label="Password" variant="outlined" />
-                    <div style={{ width: "100%", textAlign: "left", margin: "10px 0" }}>
-                        <Button size='small' sx={{ fontSize: "10px" }}>Forgot Password?</Button>
-                    </div>
-                </Box>
-                <Box sx={{ display: "flex", mt: "50px", justifyContent: "space-between", alignItems: "center" }}>
                     {
-                        signUpControl ?
-                            <>
-                                <Button size='small' sx={{ fontSize: "10px" }} onClick={openSignUpFunc}>Already have an account</Button>
-                                <Button size='small' variant='contained' onClick={signUpFunc}>Sign up</Button>
-                            </>
+                        addAccount ?
+                            <></>
                             :
-                            <>
-                                <Button size='small' sx={{ fontSize: "10px" }} onClick={openSignUpFunc}>Create account</Button>
-                                <Button size='small' variant='contained' onClick={submitFunc}>Sign in</Button>
-                            </>
+                            <div style={{ width: "100%", textAlign: "left", margin: "10px 0" }}>
+                                <Button size='small' sx={{ fontSize: "10px" }}>Forgot Password?</Button>
+                            </div>
                     }
                 </Box>
+                {
+                    addAccount ?
+                        <Button size='small' variant='contained' onClick={signUpFunc}>Sign up</Button>
+                        :
+                        <Box sx={{ display: "flex", mt: "50px", justifyContent: "space-between", alignItems: "center" }}>
+                            {
+                                signUpControl ?
+                                    <>
+                                        <Button size='small' sx={{ fontSize: "10px" }} onClick={openSignUpFunc}>Already have an account</Button>
+                                        <Button size='small' variant='contained' onClick={signUpFunc}>Sign up</Button>
+                                    </>
+                                    :
+                                    <>
+                                        <Button size='small' sx={{ fontSize: "10px" }} onClick={openSignUpFunc}>Create account</Button>
+                                        <Button size='small' variant='contained' onClick={submitFunc}>Sign in</Button>
+                                    </>
+                            }
+                        </Box>
+                }
             </div>
         </div>
     )
