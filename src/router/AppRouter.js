@@ -6,10 +6,11 @@ import SearchPage from '../components/SearchPage';
 import PublicRoute from '../routes/PublicRoute';
 import SignInPage from '../components/SignInPage';
 import '../style/style.scss';
+import {ToastContainer} from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css';
 
 const AppRouter = () => {
     let {isAuthorized, loading} = useAuthorized();
-    console.log(isAuthorized);
     if(loading){
         return (
             <h5>loading...</h5>
@@ -28,6 +29,18 @@ const AppRouter = () => {
                     <Route path='/sign-in' element={<SignInPage />} />
                 </Route>
             </Routes>
+            <ToastContainer
+                    position="bottom-left"
+                    autoClose={2000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
         </BrowserRouter>
     )
 }

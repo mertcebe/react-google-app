@@ -1,1 +1,9 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+.shortCut{
+    cursor: pointer !important;
+}
+
+.shortCut:hover{
+    background-color: #e1e1e1 !important;
+}
