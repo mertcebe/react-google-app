@@ -13,7 +13,7 @@ const SignInPage = ({ addAccount }) => {
     let [name, setName] = useState();
 
     let signUpControl = useSelector((state) => {
-        return state.signUpControl;
+        return state.searchReducer.signUpControl;
     })
     let dispatch = useDispatch();
 

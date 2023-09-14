@@ -1,21 +1,29 @@
 @import '../../node_modules/bootstrap/scss/bootstrap.scss';
 
-.shortCut{
+.shortCut {
     cursor: pointer !important;
 }
 
-.shortCut:hover{
+#shortCutOptions {
+    visibility: hidden !important;
+}
+
+.shortCut:hover {
     background-color: #e1e1e1 !important;
 }
 
-.accountFooter:hover{
+.shortCutOne:hover > #shortCutOptions {
+    visibility: visible !important;
+}
+
+.accountFooter:hover {
     background-color: #c8c8c8 !important;
 }
 
-.accountBtn:hover{
+.accountBtn:hover {
     background-color: #d8e0e7 !important;
 }
 
-.googleManageBtn:hover{
+.googleManageBtn:hover {
     background-color: #bdd3ed !important;
 }

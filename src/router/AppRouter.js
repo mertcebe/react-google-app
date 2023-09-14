@@ -8,6 +8,7 @@ import SignInPage from '../components/SignInPage';
 import '../style/style.scss';
 import {ToastContainer} from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css';
+import SearchResultsPage from '../components/SearchResultsPage';
 
 const AppRouter = () => {
     let {isAuthorized, loading} = useAuthorized();

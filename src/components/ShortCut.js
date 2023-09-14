@@ -1,12 +1,16 @@
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material'
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { deleteDoc, doc } from 'firebase/firestore';
+import { deleteDoc, doc, setDoc } from 'firebase/firestore';
 import database, { auth } from '../firebase/firebaseConfig';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 
 const ShortCut = ({ text, url, img, shortCut }) => {
-    const [anchorEl, setAnchorEl] = React.useState(null);
+    let [shortCutName, setShortCutName] = useState();
+    let [shortCutURL, setShortCutURL] = useState();
+    const [anchorEl, setAnchorEl] = useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -22,19 +26,31 @@ const ShortCut = ({ text, url, img, shortCut }) => {
             })
     }
 
-    const editShortCut = () => {
+    let isShortCutOpen = useSelector((state) => {
+        return state.searchReducer.isShortCutOpen;
+    })
+    let dispatch = useDispatch();
 
+    const editShortCutOpen = () => {
+        dispatch({
+            type: "OPEN_SHORTCUT",
+            payload: !isShortCutOpen,
+            editShortCutOpen: {
+                ...shortCut
+            }
+        })
+        handleClose();
     }
 
     return (
-        <div style={{ position: "relative" }}>
+        <div className='shortCutOne' style={{ position: "relative" }}>
             {
                 img ?
                     <></>
                     :
-                    <>
+                    <div id='shortCutOptions'>
                         <IconButton
-                            sx={{ position: "absolute", top: "0px", right: "0px", zIndex: "100", width: "24px", height: "24px" }}
+                            sx={{ position: "absolute", top: "0px", right: "0px", zIndex: "30", width: "24px", height: "24px" }}
                             aria-label="more"
                             id="long-button"
                             aria-controls={open ? 'long-menu' : undefined}
@@ -53,10 +69,10 @@ const ShortCut = ({ text, url, img, shortCut }) => {
                             open={open}
                             onClose={handleClose}
                         >
-                            <MenuItem onClick={editShortCut}>Edit the shortcut</MenuItem>
+                            <MenuItem onClick={editShortCutOpen}>Edit the shortcut</MenuItem>
                             <MenuItem onClick={deleteShortCut}>Delete</MenuItem>
                         </Menu>
-                    </>
+                    </div>
             }
             <NavLink to={url} className='shortCut' style={{ background: "#fff", width: "80px", height: "80px", display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", borderRadius: "4px", textDecoration: "none", color: "#000" }}>
 
