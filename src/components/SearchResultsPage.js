@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { useLocation } from 'react-router'
+import React, { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router'
 import { NavLink, useSearchParams } from 'react-router-dom';
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,20 +15,49 @@ import AppsIcon from '@mui/icons-material/Apps';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { signOut } from 'firebase/auth';
 import SignInPage from './SignInPage';
+import SearchResult from './SearchResult';
+import jsonData from '../myData.json';
+
 
 const SearchResultsPage = () => {
-    let location = useLocation();
+    let [searchResults, setSearchResults] = useState();
     let [searchParams] = useSearchParams();
     let searchTextValue = searchParams.get('q');
     let [searchText, setSearchText] = useState(searchTextValue);
     let dispatch = useDispatch();
 
-    const apiKey = 'AIzaSyCVYfRU371n9AksTXZjTfVrwstyfZzP25E';
+    // scroll navbar
+    document.addEventListener('scroll', (e) => {
+        if (window.scrollY >= 140) {
+            document.getElementById('navbar').style.position = 'sticky';
+            document.getElementById('navbar').style.top = '0px';
+            document.getElementById('navbar').style.padding = '0px 30px';
+            document.getElementById('navbar').style.boxShadow = '5px 0 10px #dfdfdf';
+        }
+        else{
+            document.getElementById('navbar').style.position = 'relative';
+            document.getElementById('navbar').style.padding = '20px 30px';
+            document.getElementById('navbar').style.boxShadow = 'none';
+        }
+    })
 
-    // axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=017576662512468239146:omuauf_lfve&q=javascript`)
-    // .then((response) => {
-    //     console.log(response.data)
-    // })
+    let navigate = useNavigate();
+
+    const apiKey = 'AIzaSyCVYfRU371n9AksTXZjTfVrwstyfZzP25E';
+    const cx = '85bad5f3e910a4ddd';
+
+    const getSearchResults = (text) => {
+        // axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${text}`)
+        //     .then((response) => {
+        //         console.log(response.data);
+        //         setSearchResults(response.data);
+        //     })
+        setSearchResults(jsonData);
+    }
+
+    useEffect(() => {
+        getSearchResults(searchText);
+    }, []);
 
 
     // account settings
@@ -45,6 +74,11 @@ const SearchResultsPage = () => {
         setAnchorEl(null);
     };
 
+    if (!searchResults) {
+        return (
+            <h5>loading...</h5>
+        )
+    }
     return (
         <div>
             {
@@ -67,13 +101,16 @@ const SearchResultsPage = () => {
                     <></>
             }
             {/* navbar */}
-            <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 30px" }}>
+            <div id='navbar' style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "20px 30px", zIndex: "200", background: "#fff" }}>
                 <div style={{ display: "flex", alignItems: "center" }}>
                     <img src={googleImg} alt="" style={{ width: "100px", marginRight: "30px" }} />
 
                     <div style={{ width: "700px", margin: "10px 0", display: "flex", borderRadius: "40px", height: "40px", boxShadow: "0px 1px 6px #20212447" }}>
 
-                        <form className='p-0' style={{ width: "510px", marginLeft: "10px", height: "40px", overflow: "hidden" }} onSubmit={() => { }}>
+                        <form className='p-0' style={{ width: "510px", marginLeft: "10px", height: "40px", overflow: "hidden" }} onSubmit={(e) => {
+                            e.preventDefault();
+                            navigate(`/search?q=${searchText}`);
+                        }}>
                             <input type="text" value={searchText} onChange={(e) => {
                                 setSearchText(e.target.value);
                             }} style={{ width: "100%", height: "100%", outline: "none", border: "none", borderRadius: "40px", boxSizing: "border-box", padding: "0 10px" }} />
@@ -102,7 +139,9 @@ const SearchResultsPage = () => {
                                 </IconButton>
                             </Tooltip>
                             <Tooltip title={'Search'}>
-                                <IconButton className='m-0'>
+                                <IconButton className='m-0' onClick={() => {
+                                    navigate(`/search?q=${searchText}`);
+                                }}>
                                     <SearchIcon style={{ width: "25px", height: "25px", color: "#4285f4" }} />
                                 </IconButton>
                             </Tooltip>
@@ -202,8 +241,25 @@ const SearchResultsPage = () => {
                 </div>
             </div>
 
-            <main>
-                results
+            {/* search navbar */}
+            <div className='searchNavbar' style={{ padding: "0 170px", display: "flex", alignItems: "center", borderBottom: "1px solid #efefef" }}>
+                <NavLink to={`/search?q=${searchText}`} style={{ position: "relative", textDecoration: "none", color: "gray", fontSize: "15px", display: "inline-block", width: "80px", height: "40px", marginRight: "10px", textAlign: "center", lineHeight: "40px" }}><i style={{ marginRight: "8px" }} className="fa-solid fa-magnifying-glass"></i>All</NavLink>
+                <NavLink to={`/search/images?q=${searchText}`} style={{ position: "relative", textDecoration: "none", color: "gray", fontSize: "15px", display: "inline-block", width: "80px", height: "40px", marginRight: "10px", textAlign: "center", lineHeight: "40px" }}><i style={{ marginRight: "8px" }} className="fa-regular fa-image"></i>Images</NavLink>
+            </div>
+
+            <main style={{ margin: "10px 170px", width: "700px", paddingBottom: "1000px" }}>
+
+                {/* search results */}
+                <div>
+                    {
+                        searchResults.items.map((search, index) => {
+                            return (
+                                <SearchResult search={search} key={index} />
+                            )
+                        })
+                    }
+                </div>
+
             </main>
         </div>
     )
