@@ -23,6 +23,7 @@ const AppRouter = () => {
                 {/* private route */}
                 <Route element={<PrivateRoute isAuthorized={isAuthorized}/>}>
                     <Route path='/search' element={<SearchPage />} />
+                    <Route path='/images' element={<SearchResultsPage />} />
                 </Route>
 
                 {/* public route */}

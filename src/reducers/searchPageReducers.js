@@ -2,7 +2,9 @@ let initialState = {
     signUpControl: false,
     isShortCutOpen: false,
     editShortCutOpen: null,
-    searchText: ''
+    searchText: '',
+    openImage: false,
+    image: null
 };
 
 export const searchReducer = (state = initialState, action) => {
@@ -22,6 +24,12 @@ export const searchReducer = (state = initialState, action) => {
             return {
                 ...state,
                 searchText: action.payload
+            };
+        case 'OPEN_IMAGE':
+            return {
+                ...state,
+                openImage: action.payload,
+                image: action.image
             };
         default:
             return state

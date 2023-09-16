@@ -17,6 +17,7 @@ import { signOut } from 'firebase/auth';
 import SignInPage from './SignInPage';
 import SearchResult from './SearchResult';
 import jsonData from '../myData.json';
+import SearchImage from './SearchImage';
 
 
 const SearchResultsPage = () => {
@@ -24,17 +25,17 @@ const SearchResultsPage = () => {
     let [searchParams] = useSearchParams();
     let searchTextValue = searchParams.get('q');
     let [searchText, setSearchText] = useState(searchTextValue);
+    let location = useLocation();
     let dispatch = useDispatch();
 
     // scroll navbar
     document.addEventListener('scroll', (e) => {
         if (window.scrollY >= 140) {
             document.getElementById('navbar').style.position = 'sticky';
-            document.getElementById('navbar').style.top = '0px';
             document.getElementById('navbar').style.padding = '0px 30px';
             document.getElementById('navbar').style.boxShadow = '5px 0 10px #dfdfdf';
         }
-        else{
+        else {
             document.getElementById('navbar').style.position = 'relative';
             document.getElementById('navbar').style.padding = '20px 30px';
             document.getElementById('navbar').style.boxShadow = 'none';
@@ -44,15 +45,15 @@ const SearchResultsPage = () => {
     let navigate = useNavigate();
 
     const apiKey = 'AIzaSyCVYfRU371n9AksTXZjTfVrwstyfZzP25E';
-    const cx = '85bad5f3e910a4ddd';
+    const cx = '24b6b44f0f3d9412a';
 
     const getSearchResults = (text) => {
-        // axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${text}`)
-        //     .then((response) => {
-        //         console.log(response.data);
-        //         setSearchResults(response.data);
-        //     })
-        setSearchResults(jsonData);
+        axios.get(`https://www.googleapis.com/customsearch/v1?key=${apiKey}&cx=${cx}&q=${text}`)
+            .then((response) => {
+                console.log(response.data);
+                setSearchResults(response.data);
+            })
+        // setSearchResults(jsonData);
     }
 
     useEffect(() => {
@@ -73,6 +74,10 @@ const SearchResultsPage = () => {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    let [openImage, image] = useSelector((state) => {
+        return [state.searchReducer.openImage, state.searchReducer.image];
+    })
 
     if (!searchResults) {
         return (
@@ -109,7 +114,15 @@ const SearchResultsPage = () => {
 
                         <form className='p-0' style={{ width: "510px", marginLeft: "10px", height: "40px", overflow: "hidden" }} onSubmit={(e) => {
                             e.preventDefault();
-                            navigate(`/search?q=${searchText}`);
+                            if (searchText) {
+                                if (location.pathname === '/search') {
+                                    navigate(`/search?q=${searchText}`);
+                                }
+                                else {
+                                    navigate(`/images?q=${searchText}`);
+                                }
+                                getSearchResults(searchText);
+                            }
                         }}>
                             <input type="text" value={searchText} onChange={(e) => {
                                 setSearchText(e.target.value);
@@ -139,8 +152,14 @@ const SearchResultsPage = () => {
                                 </IconButton>
                             </Tooltip>
                             <Tooltip title={'Search'}>
-                                <IconButton className='m-0' onClick={() => {
-                                    navigate(`/search?q=${searchText}`);
+                                <IconButton className='m-0' disabled={searchText ? false : true} onClick={() => {
+                                    if (location.pathname === '/search') {
+                                        navigate(`/search?q=${searchText}`);
+                                    }
+                                    else {
+                                        navigate(`/images?q=${searchText}`);
+                                    }
+                                    getSearchResults(searchText);
                                 }}>
                                     <SearchIcon style={{ width: "25px", height: "25px", color: "#4285f4" }} />
                                 </IconButton>
@@ -243,24 +262,87 @@ const SearchResultsPage = () => {
 
             {/* search navbar */}
             <div className='searchNavbar' style={{ padding: "0 170px", display: "flex", alignItems: "center", borderBottom: "1px solid #efefef" }}>
-                <NavLink to={`/search?q=${searchText}`} style={{ position: "relative", textDecoration: "none", color: "gray", fontSize: "15px", display: "inline-block", width: "80px", height: "40px", marginRight: "10px", textAlign: "center", lineHeight: "40px" }}><i style={{ marginRight: "8px" }} className="fa-solid fa-magnifying-glass"></i>All</NavLink>
-                <NavLink to={`/search/images?q=${searchText}`} style={{ position: "relative", textDecoration: "none", color: "gray", fontSize: "15px", display: "inline-block", width: "80px", height: "40px", marginRight: "10px", textAlign: "center", lineHeight: "40px" }}><i style={{ marginRight: "8px" }} className="fa-regular fa-image"></i>Images</NavLink>
+                <NavLink to={`/search?q=${searchText}`} onClick={() => {
+                    dispatch({
+                        type: "OPEN_IMAGE",
+                        payload: false,
+                        image: {}
+                    })
+                }} style={{ position: "relative", textDecoration: "none", color: "gray", fontSize: "15px", display: "inline-block", width: "80px", height: "40px", marginRight: "10px", textAlign: "center", lineHeight: "40px" }}><i style={{ marginRight: "8px" }} className="fa-solid fa-magnifying-glass"></i>All</NavLink>
+                <NavLink to={`/images?q=${searchText}`} onClick={() => {
+                    dispatch({
+                        type: "OPEN_IMAGE",
+                        payload: false,
+                        image: {}
+                    })
+                }} style={{ position: "relative", textDecoration: "none", color: "gray", fontSize: "15px", display: "inline-block", width: "80px", height: "40px", marginRight: "10px", textAlign: "center", lineHeight: "40px" }}><i style={{ marginRight: "8px" }} className="fa-regular fa-image"></i>Images</NavLink>
             </div>
 
-            <main style={{ margin: "10px 170px", width: "700px", paddingBottom: "1000px" }}>
 
-                {/* search results */}
-                <div>
-                    {
-                        searchResults.items.map((search, index) => {
-                            return (
-                                <SearchResult search={search} key={index} />
-                            )
-                        })
-                    }
-                </div>
+            {
+                searchResults.items ?
+                    <>
+                        {
+                            location.pathname === '/images' ?
+                                <div style={{ display: "flex", alignItems: "flex-start", padding: "10px 20px", paddingBottom: "1000px" }}>
+                                    <div style={{ display: "flex", flexWrap: "wrap", width: "100%" }}>
+                                        {
+                                            searchResults.items.map((item) => {
+                                                return (
+                                                    <SearchImage item={item} image={item.pagemap ? item.pagemap.cse_thumbnail : undefined} />
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    {
+                                        openImage ?
+                                            <div style={{ width: "50%", background: "red", position: "sticky", top: "50px", padding: "10px", borderRadius: "10px" }}>
+                                                <div style={{textAlign: "end"}}>
+                                                    <IconButton onClick={() => {
+                                                        dispatch({
+                                                            type: "OPEN_IMAGE",
+                                                            payload: false,
+                                                            image: {}
+                                                        })
+                                                    }} sx={{width: "40px", height: "40px", lineHeight: "40px"}}>x</IconButton>
+                                                </div>
+                                                <img src={image.src} alt="" style={{ width: "100%" }} />
+                                                <div>
+                                                    true
+                                                </div>
+                                            </div>
+                                            :
+                                            <></>
+                                    }
+                                </div>
+                                :
+                                <main style={{ margin: "10px 170px", width: "700px" }}>
 
-            </main>
+                                    {/* search results */}
+                                    <div>
+                                        <div>
+                                            <p style={{ fontSize: "14px", color: "grey" }}>Approximately {searchResults.searchInformation.formattedTotalResults} results found ({searchResults.searchInformation.formattedSearchTime} seconds)</p>
+                                        </div>
+                                        {
+                                            searchResults.items.map((search, index) => {
+                                                if (index === 4) {
+                                                    return (
+                                                        <h5>other searches</h5>
+                                                    )
+                                                }
+                                                return (
+                                                    <SearchResult search={search} key={index} />
+                                                )
+                                            })
+                                        }
+                                    </div>
+
+                                </main>
+                        }
+                    </>
+                    :
+                    <></>
+            }
         </div>
     )
 }

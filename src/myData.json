@@ -1,71 +1,8 @@
 {
+    "context": {
+        "title": "react-google-app"
+    },
     "items": [
-        {
-            "cacheId": "1iYXz9SI5YsJ",
-            "displayLink": "developer.mozilla.org",
-            "formattedUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-            "htmlFormattedUrl": "https://developer.mozilla.org/en-US/docs/Web/<b>JavaScript</b>",
-            "htmlSnippet": "4 days ago <b>...</b> <b>JavaScript</b> (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.",
-            "htmlTitle": "<b>JavaScript</b> | MDN",
-            "kind": "customsearch#result",
-            "link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-            "pagemap": {
-                "cse_image": [{
-                    "src": "https://www.w3schools.com/signup/lynxlogo.svg"
-                }],
-                "cse_thumbnail": [{
-                    "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:AN…mBJFWCrR_j9haYslGiDqoHd8JVz9UagOLfERG6u8LzMER5mGo",
-                    "width": "169",
-                    "height": "193"
-                }]
-            },
-            "snippet": "4 days ago ... JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.",
-            "title": "JavaScript | MDN"
-        },
-        {
-            "cacheId": "2iYXz9SI5YsJ",
-            "displayLink": "developer.mozilla.org",
-            "formattedUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-            "htmlFormattedUrl": "https://developer.mozilla.org/en-US/docs/Web/<b>JavaScript</b>",
-            "htmlSnippet": "4 days ago <b>...</b> <b>JavaScript</b> (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.",
-            "htmlTitle": "<b>JavaScript</b> | MDN",
-            "kind": "customsearch#result",
-            "link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-            "pagemap": {
-                "cse_image": [{
-                    "src": "https://www.w3schools.com/signup/lynxlogo.svg"
-                }],
-                "cse_thumbnail": [{
-                    "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:AN…mBJFWCrR_j9haYslGiDqoHd8JVz9UagOLfERG6u8LzMER5mGo",
-                    "width": "169",
-                    "height": "193"
-                }]
-            },
-            "snippet": "4 days ago ... JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.",
-            "title": "JavaScript | MDN"
-        },
-        {
-            "cacheId": "3iYXz9SI5YsJ",
-            "displayLink": "developer.mozilla.org",
-            "formattedUrl": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-            "htmlFormattedUrl": "https://developer.mozilla.org/en-US/docs/Web/<b>JavaScript</b>",
-            "htmlSnippet": "4 days ago <b>...</b> <b>JavaScript</b> (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.",
-            "htmlTitle": "<b>JavaScript</b> | MDN",
-            "kind": "customsearch#result",
-            "link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
-            "pagemap": {
-                "cse_image": [{
-                    "src": "https://www.w3schools.com/signup/lynxlogo.svg"
-                }],
-                "cse_thumbnail": [{
-                    "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:AN…mBJFWCrR_j9haYslGiDqoHd8JVz9UagOLfERG6u8LzMER5mGo",
-                    "width": "169",
-                    "height": "193"
-                }]
-            },
-            "snippet": "4 days ago ... JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.",
-            "title": "JavaScript | MDN"
-        },
         {
             "cacheId": "4iYXz9SI5YsJ",
             "displayLink": "developer.mozilla.org",
@@ -76,17 +13,164 @@
             "kind": "customsearch#result",
             "link": "https://developer.mozilla.org/en-US/docs/Web/JavaScript",
             "pagemap": {
-                "cse_image": [{
-                    "src": "https://www.w3schools.com/signup/lynxlogo.svg"
-                }],
-                "cse_thumbnail": [{
-                    "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:AN…mBJFWCrR_j9haYslGiDqoHd8JVz9UagOLfERG6u8LzMER5mGo",
-                    "width": "169",
-                    "height": "193"
-                }]
+                "cse_image": [
+                    {
+                        "src": "https://www.w3schools.com/signup/lynxlogo.svg"
+                    }
+                ],
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:AN…mBJFWCrR_j9haYslGiDqoHd8JVz9UagOLfERG6u8LzMER5mGo",
+                        "width": "169",
+                        "height": "193"
+                    }
+                ]
             },
             "snippet": "4 days ago ... JavaScript (JS) is a lightweight interpreted (or just-in-time compiled) programming language with first-class functions.",
             "title": "JavaScript | MDN"
+        },
+        {
+            "cacheId": "6wQQd7lXspcJ",
+            "displayLink": "react.dev",
+            "formattedUrl": "https://react.dev/",
+            "htmlFormattedUrl": "https://<b>react</b>.dev/",
+            "htmlSnippet": "<b>React</b> is a library. It lets you put components together, but it doesn&#39;t prescribe how to do routing and data fetching. To build an entire app with <b>React</b>, we&nbsp;...",
+            "htmlTitle": "<b>React</b>",
+            "kind": "customsearch#result",
+            "link": "https://react.dev/",
+            "pagemap": {
+                "cse_image": [
+                    {
+                        "src": "https://react.dev/images/og-home.png"
+                    }
+                ],
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcQ_qDUI7rsC34RLX5gHkInUBp3PbeUk0k6_Pd4DQNxhzoTGTEjBRNaNKBzD",
+                        "width": "310",
+                        "height": "163"
+                    }
+                ]
+            },
+            "snippet": "React is a library. It lets you put components together, but it doesn't prescribe how to do routing and data fetching. To build an entire app with React, we ...",
+            "title": "React"
+        },
+        {
+            "cacheId": "Js0JTNZLSZgJ",
+            "displayLink": "legacy.reactjs.org",
+            "formattedUrl": "https://legacy.reactjs.org/",
+            "htmlFormattedUrl": "https://legacy.<b>reactjs</b>.org/",
+            "htmlSnippet": "<b>React</b> &middot; Declarative. <b>React</b> makes it painless to create interactive UIs. &middot; Component-Based. Build encapsulated components that manage their own state, then compose&nbsp;...",
+            "htmlTitle": "<b>React</b> – A JavaScript library for building user interfaces",
+            "kind": "customsearch#result",
+            "link": "https://legacy.reactjs.org/",
+            "pagemap": {
+                "cse_image": [
+                    {
+                        "src": "https://legacy.reactjs.org/logo-og.png"
+                    }
+                ],
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcS8ckj5CLZitzYAlmj6QZjvlnO7HxTYPjJLSMkgDMtQpxTYcC5vbrw9z_C7",
+                        "width": "310",
+                        "height": "163"
+                    }
+                ]
+            },
+            "snippet": "React · Declarative. React makes it painless to create interactive UIs. · Component-Based. Build encapsulated components that manage their own state, then compose ...",
+            "title": "React – A JavaScript library for building user interfaces"
+        },
+        {
+            "cacheId": "Fiz1iGC5gm0J",
+            "displayLink": "en.wikipedia.org",
+            "formattedUrl": "https://en.wikipedia.org/wiki/React_(software)",
+            "htmlFormattedUrl": "https://en.wikipedia.org/wiki/<b>React</b>_(software)",
+            "htmlSnippet": "js or <b>ReactJS</b>) is a free and open-source front-end JavaScript library for building user interfaces based on components. It is maintained by Meta (formerly&nbsp;...",
+            "htmlTitle": "<b>React</b> (software) - Wikipedia",
+            "kind": "customsearch#result",
+            "link": "https://en.wikipedia.org/wiki/React_(software)",
+            "pagemap": {},
+            "snippet": "js or ReactJS) is a free and open-source front-end JavaScript library for building user interfaces based on components. It is maintained by Meta (formerly ...",
+            "title": "React (software) - Wikipedia"
+        },
+        {
+            "cacheId": "OMMXOohbTAAJ",
+            "displayLink": "www.w3schools.com",
+            "formattedUrl": "https://www.w3schools.com/whatis/whatis_react.asp",
+            "htmlFormattedUrl": "https://www.w3schools.com/whatis/whatis_<b>react</b>.asp",
+            "htmlSnippet": "<b>js</b>; What is npm. For a full tutorial: Go to our <b>React</b> Tutorial ❯. Adding <b>React</b> to an HTML Page. This quickstart&nbsp;...",
+            "htmlTitle": "<b>js</b>; What is npm. For a full tutorial: Go to our <b>React</b> Tutorial ❯. Adding <b>React</b> to an HTML Page. This quickstart&nbsp;...",
+            "kind": "customsearch#result",
+            "link": "https://www.w3schools.com/whatis/whatis_react.asp",
+            "pagemap": {
+                "cse_image": [
+                    {
+                        "src": "https://www.w3schools.com/whatis/img_react.jpg"
+                    }
+                ],
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShmxxqmfkuk6cM9IllPw0E6qsoYHMlBHFGXW3F5S6O6BA1KLnARzYS7FvA",
+                        "width": "200",
+                        "height": "200"
+                    }
+                ]
+            },
+            "snippet": "js; What is npm. For a full tutorial: Go to our React Tutorial ❯. Adding React to an HTML Page. This quickstart ...",
+            "title": "What is React"
+        },
+        {
+            "cacheId": "7I58Nxfiu5IJ",
+            "displayLink": "nextjs.org",
+            "formattedUrl": "https://nextjs.org/",
+            "htmlFormattedUrl": "https://nextjs.org/",
+            "htmlSnippet": "Next.<b>js</b> by Vercel is the full-stack <b>React</b> framework for the web.",
+            "htmlTitle": "Next.<b>js</b> by Vercel - The <b>React</b> Framework",
+            "kind": "customsearch#result",
+            "link": "https://nextjs.org/",
+            "pagemap": {
+                "cse_image": [
+                    {
+                        "src": "https://assets.vercel.com/image/upload/front/nextjs/twitter-card.png"
+                    }
+                ],
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcTjwA25tCwQj2DyAYQkP6t4E1TovMEHI2bn0TN_OTw_T5CBaJ7isgYmoXGv",
+                        "width": "297",
+                        "height": "170"
+                    }
+                ]
+            },
+            "snippet": "Next.js by Vercel is the full-stack React framework for the web.",
+            "title": "Next.js by Vercel - The React Framework"
+        },
+        {
+            "cacheId": "lergKLB9zNkJ",
+            "displayLink": "github.com",
+            "formattedUrl": "https://github.com/facebook/react",
+            "htmlFormattedUrl": "https://github.com/facebook/<b>react</b>",
+            "htmlSnippet": "<b>js</b> 18 (#26330). 6 months ago .codesandbox .github &middot; Use content hash for <b>react</b>-native builds (#26734). 5 months ago .github &middot; fixtures &middot; useFormState: Reuse&nbsp;...",
+            "htmlTitle": "facebook/react: The library for web and native user interfaces - GitHub",
+            "kind": "customsearch#result",
+            "link": "https://github.com/facebook/react",
+            "pagemap": {
+                "cse_image": [
+                    {
+                        "src": "https://opengraph.githubassets.com/25545755296d5f2bc6b7faaa22265ac8ef1b0b9c85b5b3c8e20072f4418e59f5/facebook/react"
+                    }
+                ],
+                "cse_thumbnail": [
+                    {
+                        "src": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTc1jkNVR3OB7PTZ16Q6dXuRMTIrcg_JZuPCFejTvtSqiJQT0ZTvMT_T4Y",
+                        "width": "318",
+                        "height": "159"
+                    }
+                ]
+            },
+            "snippet": "js 18 (#26330). 6 months ago .codesandbox .github · Use content hash for react-native builds (#26734). 5 months ago .github · fixtures · useFormState: Reuse ...",
+            "title": "facebook/react: The library for web and native user interfaces - GitHub"
         }
     ],
     "searchInformation": {
